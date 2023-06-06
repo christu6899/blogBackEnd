@@ -48,7 +48,7 @@ const userLogin = async (req, res) => {
       const token = jwt.sign(tokenObject, process.env.PASSPORT_SECRET);
       res.send({ success: true, token: "JWT " + token, foundUser });
     } else {
-      res.status(400).send({ message: "wrong password or email" });
+      res.status(400).send("wrong password or email");
     }
   } catch (err) {
     console.log(err);
