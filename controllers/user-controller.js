@@ -38,7 +38,7 @@ const userLogin = async (req, res) => {
     await sequelize.sync({ force: false });
     const foundUser = await User.findOne({ where: { email: req.body.email } });
     console.log(foundUser);
-    if (!foundUser) return res.status(404).send({ message: "user not exist" });
+    if (!foundUser) return res.status(404).send("user not exist");
     const isLogin = await foundUser.comparePassword(
       req.body.password,
       foundUser
