@@ -1,4 +1,4 @@
 const { Sequelize } = require("sequelize");
-const sequelize = new Sequelize("sqlite::memory:");
+const sequelize = new Sequelize(process.env.POSTGRESQL_DB_URI);
 
 module.exports = sequelize;
