@@ -1,5 +1,6 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../db_connection");
+
 const Blog = sequelize.define(
   "blog",
   {

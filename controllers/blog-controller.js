@@ -3,13 +3,13 @@ const validation = require("../config/validation");
 const sequelize = require("../db_connection");
 const User = require("../models/user-model");
 
+//新增blog
 const blogPost = async (req, res) => {
-  console.log(req.body.title, req.body.content);
+  // check the validation of data
   const { error } = validation.blogValidation(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
   try {
-    await sequelize.sync({ force: false });
     const savedBlog = await Blog.create({
       title: req.body.title,
       content: req.body.content,
@@ -25,6 +25,7 @@ const blogPost = async (req, res) => {
   }
 };
 
+//get blog by blog id
 const blogGetById = async (req, res) => {
   try {
     const blog = await Blog.findOne({
@@ -36,6 +37,7 @@ const blogGetById = async (req, res) => {
   }
 };
 
+//return blog by user id
 const blogGetAllByUser = async (req, res) => {
   try {
     const blogs = await Blog.findAll({
@@ -48,6 +50,7 @@ const blogGetAllByUser = async (req, res) => {
   }
 };
 
+//return all blogs
 const blogGetAll = async (req, res) => {
   try {
     const blogs = await Blog.findAll({
@@ -59,6 +62,7 @@ const blogGetAll = async (req, res) => {
   }
 };
 
+//delete blog with id
 const blogDelete = async (req, res) => {
   try {
     await Blog.destroy({
@@ -71,7 +75,12 @@ const blogDelete = async (req, res) => {
   }
 };
 
+//update blog content
 const blogEdit = async (req, res) => {
+  // check the validation of data
+  const { error } = validation.blogValidation(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+
   try {
     await Blog.update(
       { title: req.body.title, content: req.body.content },

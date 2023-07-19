@@ -1,6 +1,4 @@
 require("dotenv").config();
-const swaggerJsdoc = require("swagger-jsdoc");
-const swaggerUi = require("swagger-ui-express");
 const express = require("express");
 const userRoute = require("./routes/user");
 const blogRoute = require("./routes/blog");
@@ -10,20 +8,7 @@ const passport = require("passport");
 const app = express();
 require("./config/passport")(passport);
 
-const options = {
-  swaggerDefinition: {
-    // 這邊會是你的api文件網頁描述
-    info: {
-      title: "ec_web_demo API",
-      version: "1.0.0",
-      description: "Generate ec_web_demo API document with swagger",
-    },
-  },
-  // 這邊會是你想要產生的api文件檔案，我是直接讓swagger去列出所有controllers
-  apis: ["./controllers/*.js"],
-};
-const specs = swaggerJsdoc(options);
-
+//與資料庫建立連線
 (async () => {
   try {
     await sequelize.authenticate();
@@ -36,7 +21,6 @@ const specs = swaggerJsdoc(options);
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 app.use("/api/user", userRoute);
 app.use(
   "/api/blogs",
@@ -44,10 +28,12 @@ app.use(
   blogRoute
 );
 
+//api啟動測試路由
 app.get("/", (req, res) => {
   res.send("test");
 });
 
+//api啟動位置
 (async () => {
   try {
     await app.listen(8080);
