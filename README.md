@@ -8,17 +8,17 @@
 
 ## 專案資料夾結構
 
-#### Routes
+#### Controllers
 
 - 後端路由控制
 
-#### Controllers
+#### Services
 
 - 主要控制邏輯
 
 #### Models
 
-- 資料庫 Schemas
+- 資料庫連接處理
 
 #### Config
 
