@@ -24,7 +24,11 @@
 
 - 使用套件設定
 
-## Web API 服務使用範例
+## Web API 設計
+
+#### 取得 API 服務資料示範 URL
+
+Example:`http://localhost/api/user/register`
 
 #### User
 
